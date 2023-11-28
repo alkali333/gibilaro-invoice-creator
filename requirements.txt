@@ -1,0 +1,4 @@
+pypdf==3.17.1
+reportlab==4.0.7
+Requests==2.31.0
+streamlit==1.28.2

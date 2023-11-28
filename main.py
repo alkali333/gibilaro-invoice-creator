@@ -17,10 +17,11 @@ st.header(":open_file_folder: Invoice Creator")
 # User input for the product URL
 product_url = st.text_input(
     "Enter the product URL",
-    value="https://gibilarodesign.co.uk/shop/small-wrought-fire-basket-in-the-dutch-manner/",
+    # value="https://gibilarodesign.co.uk/shop/small-wrought-fire-basket-in-the-dutch-manner/",
 )
 text = st.text_area(
-    "Enter the text to add", value="Price: $999\n(including installation)"
+    "Enter the text to add",
+    #   value="Price: $999\n(including installation)"
 )
 submit_button = st.button("Get Invoice")
 

@@ -7,9 +7,6 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
-from pdfminer.high_level import extract_pages
-from pdfminer.layout import LTTextContainer, LTChar
-
 pdfmetrics.registerFont(TTFont("Ovo", "fonts/Ovo-Regular.ttf"))
 
 

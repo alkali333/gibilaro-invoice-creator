@@ -7,10 +7,15 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
+from pdfminer.high_level import extract_pages
+from pdfminer.layout import LTTextContainer, LTChar
+
 pdfmetrics.registerFont(TTFont("Ovo", "fonts/Ovo-Regular.ttf"))
 
 
 def limit_file_name(product_name: str) -> str:
+    # Remove trailing slash if present
+
     words = product_name.split("-")[:4]  # Split by '-' and take the first 4 words
     limited_name = "-".join(words)  # Join them back together with '-'
     return limited_name
@@ -26,7 +31,9 @@ def fetch_pdf(product_url: str) -> tuple[BytesIO, str]:
     pdf_bytes = BytesIO(response.content)
 
     # Use the name of the file for the download button
-    product_name = product_url.split("/")[-2]  # Extract product name for file name
+    if product_url.endswith("/"):
+        product_url = product_url[:-1]
+    product_name = product_url.split("/")[-1]  # Extract product name for file name
     limited_product_name = limit_file_name(product_name)
     file_name = limited_product_name + "-invoice.pdf"
 
@@ -68,3 +75,30 @@ def append_text_to_pdf(pdf_bytes: BytesIO, text: str, x: int, y: int) -> BytesIO
     output_pdf.write(output)
     output.seek(0)
     return output
+
+
+from pdfminer.high_level import extract_pages
+import fitz  # PyMuPDF
+
+
+def find_string_coordinates(pdf_bytes, search_str):
+    # Open the PDF file from the BytesIO object
+    pdf = fitz.open(stream=pdf_bytes, filetype="pdf")
+
+    # Iterate through each page of the PDF until the string is found
+    for page_num in range(len(pdf)):
+        page = pdf[page_num]
+        # Search for the string (case insensitive)
+        text_instances = page.search_for(search_str, hit_max=16)
+
+        # If the string is found, return the first instance's coordinates
+        if text_instances:
+            rect = text_instances[0]
+            x1, y1, x2, y2 = rect
+            # Adjust y coordinate to top-origin system
+            y1_adjusted = page.rect.height - y1
+            # Round the coordinates to the nearest integer
+            return int(round(x1)), int(round(y1_adjusted))
+
+    # If the string was not found in any page, return None
+    return None, None

@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-from functions import fetch_pdf, append_text_to_pdf
+from functions import fetch_pdf, append_text_to_pdf, find_string_coordinates
 
 st.set_page_config(
     page_title="Gibilaro Design Invoice Creator",
@@ -31,12 +31,13 @@ if product_url and submit_button:
 
     except requests.exceptions.RequestException as e:
         st.error(f"An error occurred while fetching the PDF: {e}")
-        # Additional error handling can go here
     else:
-        # Specify the text and position here (you can adjust x and y as needed)
         text_to_append = text
-        x_position = 300
-        y_position = 250
+
+        x, y = find_string_coordinates(pdf_bytes, "Additional Information")
+
+        x_position = x + 100
+        y_position = y - 56
 
         # Append text to the PDF outside of the try block
         pdf_bytes = append_text_to_pdf(

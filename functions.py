@@ -1,6 +1,7 @@
 import requests
 from io import BytesIO
 import pypdf
+import fitz  # PyMuPDF
 from io import BytesIO
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
@@ -72,10 +73,6 @@ def append_text_to_pdf(pdf_bytes: BytesIO, text: str, x: int, y: int) -> BytesIO
     output_pdf.write(output)
     output.seek(0)
     return output
-
-
-from pdfminer.high_level import extract_pages
-import fitz  # PyMuPDF
 
 
 def find_string_coordinates(pdf_bytes, search_str):

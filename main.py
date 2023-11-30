@@ -23,7 +23,7 @@ text = st.text_area(
     "Enter the text to add",
     #   value="Price: $999\n(including installation)"
 )
-submit_button = st.button("Generate")
+submit_button = st.button("Generate Information Sheet")
 
 if product_url and submit_button:
     try:
@@ -47,9 +47,10 @@ if product_url and submit_button:
             pdf_bytes, text_to_append, x_position, y_position
         )
 
+        st.success("Information sheet created")
         # Display download button with the PDF file
         st.download_button(
-            label="Download",
+            label="Download Information Sheet",
             data=pdf_bytes,
             file_name=file_name,
             mime="application/octet-stream",

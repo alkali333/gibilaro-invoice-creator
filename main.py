@@ -17,9 +17,9 @@ st.header(":open_file_folder: Info Sheet Maker")
 # User input for the product URL
 product_url = st.text_input(
     "Enter the product URL",
-    value="https://gibilarodesign.co.uk/shop/small-wrought-fire-basket-in-the-dutch-manner/",
+    # value="https://gibilarodesign.co.uk/shop/small-wrought-fire-basket-in-the-dutch-manner/",
 )
-text = st.text_area("Enter the text to add", value="Price: $999")
+text = st.text_area("Enter the text to add")
 submit_button = st.button("Generate Information Sheet")
 
 if product_url and submit_button:

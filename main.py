@@ -17,12 +17,9 @@ st.header(":open_file_folder: Info Sheet Maker")
 # User input for the product URL
 product_url = st.text_input(
     "Enter the product URL",
-    # value="https://gibilarodesign.co.uk/shop/small-wrought-fire-basket-in-the-dutch-manner/",
+    value="https://gibilarodesign.co.uk/shop/small-wrought-fire-basket-in-the-dutch-manner/",
 )
-text = st.text_area(
-    "Enter the text to add",
-    #   value="Price: $999\n(including installation)"
-)
+text = st.text_area("Enter the text to add", value="Price: $999")
 submit_button = st.button("Generate Information Sheet")
 
 if product_url and submit_button:
@@ -39,8 +36,8 @@ if product_url and submit_button:
         # additional information string
         x, y = find_string_coordinates(pdf_bytes, "Additional Information")
 
-        x_position = x + 100
-        y_position = y - 56
+        x_position = x + 56
+        y_position = y + 42
 
         # Append text to the PDF outside of the try block
         pdf_bytes = append_text_to_pdf(

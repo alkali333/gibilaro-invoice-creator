@@ -43,7 +43,7 @@ def append_text_to_pdf(pdf_bytes: BytesIO, text: str, x: int, y: int) -> BytesIO
     packet = BytesIO()
     c = canvas.Canvas(packet, pagesize=letter)
 
-    c.setFont("Times-Roman", 12)
+    c.setFont("Times-Roman", 14)
 
     # Split the text by newlines and draw each line separately
     lines = text.split("\n")
